@@ -18,22 +18,33 @@ class Widget {
 
     public String toString() {
         StringBuilder builder = new StringBuilder()
-        StringBuilder keyBuilder = new StringBuilder()
-        builder.append(getClass().toString() + "(")
-        keyBuilder.append(sysId.substring(0,3))
-        keyBuilder.append('-')
-        keyBuilder.append(sysId.substring(3,4))
-        keyBuilder.append('-')
-        keyBuilder.append(sysId.substring(4,6))
-        builder.append(keyBuilder.toString())
-        builder.append(")\n")
+        builder.append(getClass().toString())
+        builder.append("(${getFormattedID()})\n")
+        builder.append(getFormattedMap())
+        builder.toString()
+    }
 
+    private String getFormattedMap() {
+        StringBuilder builder = new StringBuilder()
         map.each { key, value ->
-            if (value instanceof CharSequence) {
-                builder.append("\t$key: $value\n")
-            } else
-                builder.append("\t$key: (Binary content)")
+            builder.append(getFormattedEntry(key, value))
         }
         builder.toString()
+    }
+
+    private String getFormattedEntry(key, value) {
+        if (value instanceof CharSequence)
+            return "\t$key: $value\n"
+        return "\t$key: (Binary content)"
+    }
+
+    private String getFormattedID() {
+        StringBuilder keyBuilder = new StringBuilder()
+        keyBuilder.append(sysId.substring(0, 3))
+        keyBuilder.append('-')
+        keyBuilder.append(sysId.substring(3, 4))
+        keyBuilder.append('-')
+        keyBuilder.append(sysId.substring(4, 6))
+        keyBuilder.toString()
     }
 }
