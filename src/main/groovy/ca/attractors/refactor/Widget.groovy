@@ -1,15 +1,19 @@
 package ca.attractors.refactor
 
 class Widget {
-    String sysId = "123456"      //XXX-X-XX
+    String sysId      //XXX-X-XX
     Map map = new HashMap()
 
-    public static void main(String[] args) {
-        println(new Widget().toString())
+    Widget(String sysId) {
+        if (sysId.length() != 6)
+            throw new IllegalArgumentException("$sysId must be exactly 5 characters long")
+        this.sysId = sysId
     }
 
-    String getSysId() {
-        return sysId
+    static void main(String[] args) {
+        Widget widget =  new Widget("123456")
+        widget.map =  [a : "Alpha", b: "Beta", c: "This is a test".getBytes() ]
+        println(widget.toString())
     }
 
     public String toString() {
@@ -22,15 +26,14 @@ class Widget {
         keyBuilder.append('-')
         keyBuilder.append(sysId.substring(4,6))
         builder.append(keyBuilder.toString())
-
+        builder.append(")\n")
 
         map.each { key, value ->
             if (value instanceof CharSequence) {
-                builder.append("$key: $value\n")
+                builder.append("\t$key: $value\n")
             } else
-                builder.append("$key: Binary ")
+                builder.append("\t$key: (Binary content)")
         }
-        builder.append(")")
         builder.toString()
     }
 }
