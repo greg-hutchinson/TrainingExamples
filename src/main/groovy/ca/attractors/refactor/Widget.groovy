@@ -20,20 +20,28 @@ class Widget {
     }
 
     int getWeight() {       //This one is surely refactored enough !!!
-        weight = 500        //Weight of a widget
-        //Calculate the weight of the things.
+        getThisWeight() + getThingsWeight()
+    }
+
+    private int getThisWeight() {
+        500
+    }
+
+    int getThingsWeight() {
+        int total = 0
         things.each {Thing thing ->
-            weight += thing.getWeight()
+            total += thing.getWeight()
         }
-        weight
+        total
     }
 
     public String toString() {
         StringBuilder builder = new StringBuilder()
         builder.append(getClass().toString())
-        builder.append("(${sysId.toString()} \n")
+        builder.append("(${sysId.toString()}) \n")
         builder.append("${getFormattedMap()} \n")
         builder.append("${getFormattedThings()} \n")
+        builder.append("And the total weight is ${getWeight()} grams")
         builder.toString()
     }
 
@@ -50,16 +58,6 @@ class Widget {
 
     private String getFormattedMap() {
         new MapFormatter().getFormattedMap()
-    }
-
-    private String getFormattedID() {
-        StringBuilder keyBuilder = new StringBuilder()
-        keyBuilder.append(sysId.substring(0, 3))
-        keyBuilder.append('-')
-        keyBuilder.append(sysId.substring(3, 4))
-        keyBuilder.append('-')
-        keyBuilder.append(sysId.substring(4, 6))
-        keyBuilder.toString()
     }
 
     class MapFormatter {
