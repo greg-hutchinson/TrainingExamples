@@ -3,6 +3,8 @@ package ca.attractors.refactor
 class Widget {
     String sysId      //XXX-X-XX
     Map map = new HashMap()
+    List things = []
+
 
     Widget(String sysId) {
         if (sysId.length() != 6)
@@ -13,6 +15,8 @@ class Widget {
     static void main(String[] args) {
         Widget widget =  new Widget("123456")
         widget.map =  [a : "Alpha", b: "Beta", c: "This is a test".getBytes() ]
+        widget.things.add(new Pencil())
+        widget.things.add(new Pen())
         println(widget.toString())
     }
 
@@ -34,6 +38,20 @@ class Widget {
             } else
                 builder.append("\t$key: (Binary content)")
         }
+        things.each {Thing thing ->
+            builder.append(thing.getDescription() + "\n")
+        }
+        builder.append("And the total weight is ${getWeight()} grams")
         builder.toString()
     }
+
+    int getThingsWeight() {
+        int total = 500         //Widget weight
+        // Add all things weight to this weight
+        things.each {Thing thing ->
+            total += thing.getWeight()
+        }
+        total
+    }
+
 }
