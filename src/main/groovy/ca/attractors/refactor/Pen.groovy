@@ -5,4 +5,5 @@ class Pen extends Thing {
     int getWeight() {
         200
     }
+
 }

@@ -1,7 +1,7 @@
 package ca.attractors.refactor
 
 class Widget {
-    String sysId      //XXX-X-XX
+    SystemIdentifier sysId
     Map map = new HashMap()
     List things = []
 
@@ -14,8 +14,10 @@ class Widget {
     }
 
     Widget(String sysId) {
-        if (sysId.length() != 6)
-            throw new IllegalArgumentException("$sysId must be exactly 5 characters long")
+        this(new SystemIdentifier(sysId))
+    }
+
+    Widget(SystemIdentifier sysId) {
         this.sysId = sysId
     }
 
@@ -48,10 +50,7 @@ class Widget {
     private String getFormattedThings() {
         StringBuilder builder = new StringBuilder()
         things.each {Thing thing ->
-            String desc = "light"
-            if (thing.getWeight() > 200)
-                desc = "heavy"
-            builder.append("${thing.getClass().toString()} is $desc\n")
+            builder.append(thing.getDescription() + "\n")
         }
         builder.toString()
     }

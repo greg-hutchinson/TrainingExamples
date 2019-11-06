@@ -4,7 +4,7 @@ class SystemIdentifier {
     private String id
 
     SystemIdentifier(String id) {
-        if (sysId.length() != 6)
+        if (id.length() != 6)
             throw new IllegalArgumentException("$id must be exactly 5 characters long")
         this.id = id
     }
