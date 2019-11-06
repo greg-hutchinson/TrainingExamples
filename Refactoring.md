@@ -12,6 +12,7 @@ First some Principals: (Heuristic)
 - Methods with no conditional or looping logic are easier to understand than Methods with conditions or loops
 - Many methods can be thought of as attributes, so they should start with the verb get.
 - interrogating the data of an object to make decisions is a red flag - perhaps delegate
+- Beware of comments that describe lines of code
 - And most importantly - "Strings are evil"
 
 Depending on the language (Java) you are using maximum method size should not exceed 10-15 lines. (Smalltalk considers methods

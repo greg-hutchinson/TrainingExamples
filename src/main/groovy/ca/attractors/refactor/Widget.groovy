@@ -19,8 +19,9 @@ class Widget {
         this.sysId = sysId
     }
 
-    int getWeight() {
-        weight = 500      //Weight of a widget
+    int getWeight() {       //This one is surely refactored enough !!!
+        weight = 500        //Weight of a widget
+        //Calculate the weight of the things.
         things.each {Thing thing ->
             weight += thing.getWeight()
         }
@@ -30,7 +31,7 @@ class Widget {
     public String toString() {
         StringBuilder builder = new StringBuilder()
         builder.append(getClass().toString())
-        builder.append("(${getFormattedID()}) \n")
+        builder.append("(${sysId.toString()} \n")
         builder.append("${getFormattedMap()} \n")
         builder.append("${getFormattedThings()} \n")
         builder.toString()
