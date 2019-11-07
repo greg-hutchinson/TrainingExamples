@@ -40,9 +40,9 @@ class Widget {
     public String toString() {
         StringBuilder builder = new StringBuilder()
         builder.append(getClass().toString())
-        builder.append("(${sysId.toString()}) \n")
-        builder.append("${getFormattedMap()} \n")
-        builder.append("${getFormattedThings()} \n")
+        builder.append("(${sysId.toString()})\n")
+        builder.append("${getFormattedMap()}\n")
+        builder.append("${getFormattedThings()}")
         builder.append("And the total weight is ${getWeight()} grams")
         builder.toString()
     }
