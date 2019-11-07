@@ -2,7 +2,7 @@ package ca.attractors.refactor
 
 class Widget {
     String sysId      //XXX-X-XX
-    Map map = new HashMap()
+    Map map = [:]
     List things = []
 
     private Widget() {}
@@ -17,6 +17,8 @@ class Widget {
         StringBuilder builder = new StringBuilder()
         StringBuilder keyBuilder = new StringBuilder()
         builder.append(getClass().toString() + "(")
+        //These next lines put the formatted sysid into the builder
+        //Which next lines? How many? What is the name?
         keyBuilder.append(sysId.substring(0,3))
         keyBuilder.append('-')
         keyBuilder.append(sysId.substring(3,4))
