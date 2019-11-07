@@ -5,19 +5,12 @@ class Widget {
     Map map = new HashMap()
     List things = []
 
+    private Widget() {}
 
     Widget(String sysId) {
         if (sysId.length() != 6)
             throw new IllegalArgumentException("$sysId must be exactly 5 characters long")
         this.sysId = sysId
-    }
-
-    static void main(String[] args) {
-        Widget widget =  new Widget("123456")
-        widget.map =  [a : "Alpha", b: "Beta", c: "This is a test".getBytes() ]
-        widget.things.add(new Pencil())
-        widget.things.add(new Pen())
-        println(widget.toString())
     }
 
     public String toString() {
@@ -36,16 +29,22 @@ class Widget {
             if (value instanceof CharSequence) {
                 builder.append("\t$key: $value\n")
             } else
-                builder.append("\t$key: (Binary content)")
+                builder.append("\t$key: (Binary content)\n")
         }
         things.each {Thing thing ->
-            builder.append(thing.getDescription() + "\n")
+            String desc
+            if (thing.getWeight() > 200)
+                desc =  "heavy"
+            else
+                desc = "light"
+            builder.append(thing.getClass().toString() + " is $desc\n")
         }
+
         builder.append("And the total weight is ${getWeight()} grams")
         builder.toString()
     }
 
-    int getThingsWeight() {
+    int getWeight() {
         int total = 500         //Widget weight
         // Add all things weight to this weight
         things.each {Thing thing ->
@@ -53,5 +52,4 @@ class Widget {
         }
         total
     }
-
 }
