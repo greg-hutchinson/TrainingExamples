@@ -5,14 +5,6 @@ class Widget {
     Map map = new HashMap()
     List things = []
 
-    static void main(String[] args) {
-        Widget widget =  new Widget("123456")
-        widget.map =  [a : "Alpha", b: "Beta", c: "This is a test".getBytes() ]
-        widget.things.add(new Pencil())
-        widget.things.add(new Pen())
-        println(widget.toString())
-    }
-
     Widget(String sysId) {
         this(new SystemIdentifier(sysId))
     }
