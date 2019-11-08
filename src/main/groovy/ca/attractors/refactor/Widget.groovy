@@ -29,43 +29,48 @@ class Widget {
         total
     }
 
-    public String toString() {
-        StringBuilder builder = new StringBuilder()
-        builder.append(getClass().toString())
-        builder.append("(${sysId.toString()})\n")
-        builder.append("${getFormattedMap()}\n")
-        builder.append("${getFormattedThings()}")
-        builder.append("And the total weight is ${getWeight()} grams")
-        builder.toString()
+    @Override
+    String toString() {
+        new ToString().toString()
     }
 
-    private String getFormattedThings() {
-        StringBuilder builder = new StringBuilder()
-        things.each {Thing thing ->
-            builder.append(thing.getDescription() + "\n")
-        }
-        builder.toString()
-    }
-
-    private String getFormattedMap() {
-        new MapFormatter().getFormattedMap()
-    }
-
-    class MapFormatter {
-        StringBuilder builder = new StringBuilder()
-
-        String getFormattedMap() {
-            map.each { key, value ->
-                builder.append(getFormattedEntry(key, value))
-            }
+    class ToString {
+            StringBuilder builder = new StringBuilder()
+        public String toString() {
+            appendClassName()
+            appendSysId()
+            appendMap()
+            appendThings()
+            appendTotalWeight()
             builder.toString()
         }
 
-        private String getFormattedEntry(key, value) {
-            if (value instanceof CharSequence)
-                return "\t$key: $value\n"
-            return "\t$key: (Binary content)"
+        def appendClassName() {
+            builder.append(this.getClass().toString())
+        }
+
+        private String appendThings() {
+            things.each {Thing thing ->
+                builder.append(thing.getDescription() + "\n")
+            }
+        }
+
+        private String appendFormattedMap() {
+            new MapFormatter().appendFormattedMap()
+        }
+
+        class MapFormatter {
+            void appendFormattedMap() {
+                map.each { key, value ->
+                    builder.append(getFormattedEntry(key, value))
+                }
+            }
+
+            private String getFormattedEntry(key, value) {
+                if (value instanceof CharSequence)
+                    return "\t$key: $value\n"
+                return "\t$key: (Binary content)"
+            }
         }
     }
-
 }
