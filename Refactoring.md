@@ -31,3 +31,4 @@
 ## Prefer ***return*** statements as compared to ***else*** statements - This can only occur when the if-then-else is the only thing within a method.
 
 ## If many methods only apply after the refactor, consider a private inner class to document the fact.
+## Declare variables as late as possible
