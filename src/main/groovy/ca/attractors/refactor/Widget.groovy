@@ -1,76 +1,77 @@
 package ca.attractors.refactor
 
 class Widget {
-    SystemIdentifier sysId
-    Map map = new HashMap()
+    public static final int ROBOT_WEIGHT = 500
+    SystemId sysId
+    Map map = [:]
     List things = []
 
+    private Widget() {}
+
     Widget(String sysId) {
-        this(new SystemIdentifier(sysId))
+        this(new SystemId(sysId))
     }
 
-    Widget(SystemIdentifier sysId) {
+    Widget(SystemId sysId) {
         this.sysId = sysId
     }
 
-    int getWeight() {       //This one is surely refactored enough !!!
-        getThisWeight() + getThingsWeight()
+    public String toString() {
+        return new ToString().toString()
     }
 
-    private int getThisWeight() {
-        500
-    }
 
-    int getThingsWeight() {
-        int total = 0
-        things.each {Thing thing ->
-            total += thing.getWeight()
-        }
-        total
-    }
 
-    @Override
-    String toString() {
-        new ToString().toString()
-    }
+
+
 
     class ToString {
-            StringBuilder builder = new StringBuilder()
         public String toString() {
-            appendClassName()
-            appendSysId()
-            appendMap()
-            appendThings()
-            appendTotalWeight()
+            StringBuilder builder = new StringBuilder()
+            builder.append(Widget.class.toString() )
+            builder.append("(" + sysId.toString() + ")\n")
+            builder.append(getFormattedMap())
+            builder.append(getFormattedThings())
+            builder.append("And the total weight is ${getWeight()} grams")
             builder.toString()
         }
 
-        def appendClassName() {
-            builder.append(this.getClass().toString())
-        }
-
-        private String appendThings() {
+        private String getFormattedThings() {
+            StringBuilder builder = new StringBuilder()
             things.each {Thing thing ->
-                builder.append(thing.getDescription() + "\n")
+                builder.append(thing.getClass().toString() + " is ${thing.getDescription()}\n")
             }
+            builder.toString()
         }
 
-        private String appendFormattedMap() {
-            new MapFormatter().appendFormattedMap()
+        private String getFormattedMap() {
+            StringBuilder builder = new StringBuilder()
+            map.each { key, value ->
+                builder.append(getFormattedKeyValue(key, value))
+            }
+            builder.toString()
         }
 
-        class MapFormatter {
-            void appendFormattedMap() {
-                map.each { key, value ->
-                    builder.append(getFormattedEntry(key, value))
-                }
-            }
+        private String getFormattedKeyValue(def key, def value) {
+            if (value instanceof CharSequence)
+                return "\t$key: $value\n"
+            "\t$key: (Binary content)\n"
+        }
 
-            private String getFormattedEntry(key, value) {
-                if (value instanceof CharSequence)
-                    return "\t$key: $value\n"
-                return "\t$key: (Binary content)"
+        int getWeight() {
+            getWidgetWeight() + getThingsWeight()
+        }
+
+        private int getThingsWeight() {
+            int total = 0
+            things.each {Thing thing ->
+                total += thing.getWeight()
             }
+            total
+        }
+
+        int getWidgetWeight() {
+            ROBOT_WEIGHT
         }
     }
 }
